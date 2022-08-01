@@ -42,7 +42,7 @@ def AssistantAdd(mystic):
                     pass
                 except Exception as e:
                     await event.reply(
-                        f"__Asisten Gagal Bergabung__\n\n**Reason**: {e}"
+                        f"__Asisten Gagal Bergabung__\n\n**Alasan**: {e}"
                     )
                     return
         return await mystic(event)
