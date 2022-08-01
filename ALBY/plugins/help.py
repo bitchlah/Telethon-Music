@@ -1,5 +1,5 @@
 from telethon import events, Button
-from Zaid import Zaid, BOT_USERNAME
+from ALBY import ALBY, BOT_USERNAME
 from Config import Config
 
 
@@ -13,7 +13,7 @@ btn =[
 HELP_TEXT = "Welcome To help Menu Section\n\nClick on the Buttons!"
 
 
-@Zaid.on(events.NewMessage(pattern="[!?/]help"))
+@ALBY.on(events.NewMessage(pattern="[!?/]help"))
 async def help(event):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
@@ -24,13 +24,13 @@ async def help(event):
 
     await event.reply(HELP_TEXT, buttons=btn)
 
-@Zaid.on(events.NewMessage(pattern="^/start help"))
+@ALBY.on(events.NewMessage(pattern="^/start help"))
 async def _(event):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
     await event.reply(HELP_TEXT, buttons=btn)
 
-@Zaid.on(events.callbackquery.CallbackQuery(data="help"))
+@ALBY.on(events.callbackquery.CallbackQuery(data="help"))
 async def _(event):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
