@@ -1,5 +1,5 @@
-from Zaid import Zaid
-from Zaid.status import *
+from ALBY import ALBY
+from ALBY.status import *
 from Config import Config
 from telethon import events, Button
 from telethon.tl.functions.channels import EditBannedRequest
@@ -18,7 +18,7 @@ BANS_TEXT = """
 ‣ `?dkick` - To delete your msg and and kicks the replied user.
 """
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]kick ?(.*)"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]kick ?(.*)"))
 @is_admin
 async def kick(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -42,7 +42,7 @@ async def kick(event, perm):
     await Zaid.kick_participant(event.chat_id, input_str or replied_user)
     await event.reply(f"Succesfully Kicked [{info.first_name}](tg://user?id={replied_user}) from {event.chat.title}")
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]kickme"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]kickme"))
 async def kickme(event):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
@@ -58,7 +58,7 @@ async def kickme(event):
     await event.reply("Ok, as your wish")
     await Zaid.kick_participant(event.chat_id, event.sender_id)
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]ban ?(.*)"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]ban ?(.*)"))
 @is_admin
 async def ban(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -80,7 +80,7 @@ async def ban(event, perm):
     await Zaid(EditBannedRequest(event.chat_id, replied_user, ChatBannedRights(until_date=None, view_messages=True)))
     await event.reply(f"Succesfully Banned [{info.first_name}](tg://user?id={replied_user}) in {event.chat.title}")
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]unban ?(.*)"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]unban ?(.*)"))
 @is_admin
 async def unban(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -102,7 +102,7 @@ async def unban(event, perm):
     await Zaid(EditBannedRequest(event.chat_id, replied_user, ChatBannedRights(until_date=None, view_messages=False)))
     await event.reply(f"Succesfully Unbanned [{info.first_name}](tg://user?id={replied_user}) in {event.chat.title}")
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]skick"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]skick"))
 @is_admin
 async def skick(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -123,7 +123,7 @@ async def skick(event, perm):
     await Zaid.kick_participant(event.chat_id, x)
     await event.reply(f"Succesfully Kicked [{info.first_name}](tg://user?id={replied_user}) from {event.chat.title}")
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]dkick"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]dkick"))
 @is_admin
 async def dkick(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -142,7 +142,7 @@ async def dkick(event, perm):
     await Zaid.kick_participant(event.chat_id, x.sender_id)
     await event.reply(f"Succesfully Kicked [{info.first_name}](tg://user?id={replied_user}) from {event.chat.title}")
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]dban"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]dban"))
 @is_admin
 async def dban(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -163,7 +163,7 @@ async def dban(event, perm):
     await event.reply("Successfully Banned!")
     await event.reply(f"Succesfully Banned [{info.first_name}](tg://user?id={replied_user}) from {event.chat.title}")
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]sban"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]sban"))
 @is_admin
 async def sban(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -183,6 +183,6 @@ async def sban(event, perm):
     await Zaid(EditBannedRequest(event.chat_id, x, ChatBannedRights(until_date=None, view_messages=True)))
     await event.reply(f"Succesfully Banned [{info.first_name}](tg://user?id={replied_user}) from {event.chat.title}")
 
-@Zaid.on(events.callbackquery.CallbackQuery(data="bans"))
+@ALBY.on(events.callbackquery.CallbackQuery(data="bans"))
 async def banhelp(event):
     await event.edit(BANS_TEXT, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
