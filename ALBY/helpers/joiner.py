@@ -2,7 +2,7 @@ from typing import *
 import random
 from typing import Dict, List, Union
 
-from Zaid import *
+from ALBY import *
 from telethon import *
 from telethon.errors.rpcerrorlist import (
     UserAlreadyParticipantError,
@@ -36,13 +36,13 @@ def AssistantAdd(mystic):
                     )
                     await client(ImportChatInviteRequest(invitelink))
                     await event.reply(
-                        f"Joined Successfully",
+                        f"Berhasil Bergabung",
                     )
                 except UserAlreadyParticipantError:
                     pass
                 except Exception as e:
                     await event.reply(
-                        f"__Assistant Failed To Join__\n\n**Reason**: {e}"
+                        f"__Asisten Gagal Bergabung__\n\n**Reason**: {e}"
                     )
                     return
         return await mystic(event)
