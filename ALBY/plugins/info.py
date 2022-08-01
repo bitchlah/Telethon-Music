@@ -1,6 +1,6 @@
 from telethon import events, Button, types
-from Zaid import Zaid
-from Zaid.status import *
+from ALBY import ALBY
+from ALBY.status import *
 from Config import Config
 from telethon.tl.types import ChannelParticipantsAdmins
 from datetime import timedelta
@@ -15,7 +15,7 @@ MISC_HELP = """
 ‣ `?info` - To get info of a user.
 """
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]id"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]id"))
 async def id(event):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
@@ -36,12 +36,12 @@ async def id(event):
 
     await event.reply(f"User {msg.sender.first_name} id is `{msg.sender_id}`.")
  
-@Zaid.on(events.NewMessage(pattern="^[!?/]info ?(.*)"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]info ?(.*)"))
 async def info(event):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
-    sed = await Zaid(P(user_id=event.sender_id, offset=42, max_id=0, limit=80))
-    hn = await Zaid(GetFullUserRequest(event.sender_id))
+    sed = await ALBY(P(user_id=event.sender_id, offset=42, max_id=0, limit=80))
+    hn = await ALBY(GetFullUserRequest(event.sender_id))
     text = "**✘ UserInfo:**\n\n"
     text += "**» Fɪʀsᴛ Nᴀᴍᴇ:** {}\n"
     text += "**» Lᴀsᴛ Nᴀᴍᴇ:** {}\n"
@@ -53,13 +53,13 @@ async def info(event):
 
     input_str = event.pattern_match.group(1)
     if not input_str:
-          await Zaid.send_message(event.chat_id, text.format(hn.user.first_name, hn.user.last_name, event.sender_id, event.sender.username, sed.count, hn.about, event.sender_id))
+          await ALBY.send_message(event.chat_id, text.format(hn.user.first_name, hn.user.last_name, event.sender_id, event.sender.username, sed.count, hn.about, event.sender_id))
           return
  
     input_str = event.pattern_match.group(1)
-    ha = await Zaid.get_entity(input_str)
-    hu = await Zaid(GetFullUserRequest(id=input_str))
-    sedd = await Zaid(P(user_id=input_str, offset=42, max_id=0, limit=80))
+    ha = await ALBY.get_entity(input_str)
+    hu = await ALBY(GetFullUserRequest(id=input_str))
+    sedd = await ALBY(P(user_id=input_str, offset=42, max_id=0, limit=80))
 
     textn = "**✘ UserInfo:**\n\n"
     textn += "**» Fɪʀsᴛ Nᴀᴍᴇ:** {}\n"
@@ -73,6 +73,6 @@ async def info(event):
     await event.reply(textn.format(ha.first_name, ha.last_name, ha.id, ha.username, sedd.count, hu.about, ha.id))
    
 
-@Zaid.on(events.callbackquery.CallbackQuery(data="misc"))
+@ALBY.on(events.callbackquery.CallbackQuery(data="misc"))
 async def _(event):
     await event.edit(MISC_HELP, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
