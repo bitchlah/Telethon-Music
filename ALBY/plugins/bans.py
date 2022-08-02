@@ -6,16 +6,16 @@ from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.types import ChatBannedRights
 
 BANS_TEXT = """
-**✘ Some people need to be publicly banned; spammers, annoyances, or just trolls.**
+**✘ Beberapa orang perlu diban secara publik karena spammer dan gangguan.**
 
-‣ `?kickme` - To self Kick you from a chat.
-‣ `?kick` - To kick someone from a chat.
-‣ `?unban` - To unban a member from the chat.
-‣ `?ban` - To Ban Someone from a chat.
-‣ `?dban` - To delete the replied msg and bans the user.
-‣ `?sban` - To delete the replied msg and kicks the user.
-‣ `?skick` - To Delete Your msg and kicks the user 
-‣ `?dkick` - To delete your msg and and kicks the replied user.
+‣ `?kickme` - Untuk diri sendiri Menendang(kick) Anda dari obrolan chat.
+‣ `?kick` - Untuk menendang(kick) seseorang dari obrolan chat.
+‣ `?unban` - Untuk membatalkan pemblokiran(ban) anggota dari obrolan.
+‣ `?ban` - Untuk Memblokir(ban) Seseorang dari obrolan.
+‣ `?dban` - Untuk menghapus pesan yang dibalas (reply) dan memblokir(ban) pengguna.
+‣ `?sban` - Untuk menghapus pesan yang dibalas (reply) dan menendang(kick) pengguna.
+‣ `?skick` - Untuk Menghapus pesan Anda dan menendang(kick) pengguna.
+‣ `?dkick` - Untuk menghapus pesan Anda dan menendang(kick) pengguna yang dibalas (reply).
 """
 
 @ALBY.on(events.NewMessage(pattern="^[!?/]kick ?(.*)"))
@@ -25,15 +25,15 @@ async def kick(event, perm):
         return
 
     if event.is_private:
-        await event.reply("This cmd is made to be used in groups not PM")
+        await event.reply("Perintah ini dibuat untuk digunakan dalam grup, bukan di PM!")
         return
     if not perm.ban_users:
-         await event.reply("You are missing the following rights to use this command:CanBanUsers!")
+         await event.reply("Perintah ini hanya bisa digunakan admin yang memiliki hak ban!❌")
          return
     input_str = event.pattern_match.group(1)
     msg = await event.get_reply_message()
     if not input_str and not msg:
-        await event.reply("Reply to a user or give its username to kick him")
+        await event.reply("Balas (reply) ke pengguna atau berikan nama pengguna untuk menendang (kick) nya")
         return
 
     replied_user = msg.sender_id
@@ -47,15 +47,15 @@ async def kickme(event):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
     if event.is_private:
-        await event.reply("This cmd is made to be used in groups not PM")
+        await event.reply("Perintah ini dibuat untuk digunakan dalam grup, bukan di PM!")
         return
 
     check = await Zaid.get_permissions(event.chat_id, event.sender_id)
     if check.is_admin:
-        await event.reply("Sorry but I can't kick admins!")
+        await event.reply("Maaf saya tidak bisa menendang (kick) admin!")
         return
 
-    await event.reply("Ok, as your wish")
+    await event.reply("Oke, sesuai keinginan Anda")
     await Zaid.kick_participant(event.chat_id, event.sender_id)
 
 @ALBY.on(events.NewMessage(pattern="^[!?/]ban ?(.*)"))
@@ -64,15 +64,15 @@ async def ban(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
     if event.is_private:
-        await event.reply("This cmd is made to be used in groups not PM")
+        await event.reply("Perintah ini dibuat untuk digunakan dalam grup, bukan di PM!")
         return
     if not perm.ban_users:
-        await event.reply("You are missing the following rights to use this command:CanBanUsers!")
+        await event.reply("Perintah ini hanya bisa digunakan admin yang memiliki hak ban!❌")
         return
     input_str = event.pattern_match.group(1)
     msg = await event.get_reply_message()
     if not input_str and not msg:
-        await event.reply("Reply to a user or give its username to ban him")
+        await event.reply("Balas (reply) ke pengguna atau berikan nama pengguna untuk memblokir (ban) pengguna")
         return
     replied_user = msg.sender_id
     us = msg.sender.username
@@ -86,15 +86,15 @@ async def unban(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
     if event.is_private:
-        await event.reply("This cmd is made to be used in groups not PM")
+        await event.reply("Perintah ini dibuat untuk digunakan dalam grup, bukan di PM!")
         return
     if not perm.ban_users:
-        await event.reply("You are missing the following rights to use this command:CanBanUsers!")
+        await event.reply("Perintah ini hanya bisa digunakan admin yang memiliki hak ban!❌")
         return
     input_str = event.pattern_match.group(1)
     msg = await event.get_reply_message()
     if not input_str and not msg:
-        await event.reply("Reply to a user or give its username to unban him")
+        await event.reply("Balas (reply) ke pengguna atau berikan nama pengguna untuk membatalkan pemblokiran (unban) nya")
         return
     replied_user = msg.sender_id
     us = msg.sender.username
@@ -108,11 +108,11 @@ async def skick(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
     if not perm.ban_users:
-         await event.reply("You are missing the following rights to use this command:CanBanUsers!")
+         await event.reply("Perintah ini hanya bisa digunakan admin yang memiliki hak ban!❌")
          return
     reply_msg = await event.get_reply_message()
     if not reply_msg:
-        await event.reply("Reply to someone to delete it and kick the user!")
+        await event.reply("Balas (reply) seseorang untuk menghapus pesan dan menendang(kick) pengguna")
         return
 
     us = reply_msg.sender.username
@@ -129,11 +129,11 @@ async def dkick(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
     if not perm.ban_users:
-         await event.reply("You are missing the following rights to use this command:CanBanUsers!")
+         await event.reply("Perintah ini hanya bisa digunakan admin yang memiliki hak ban!❌")
          return
     reply_msg = await event.get_reply_message()
     if not reply_msg:
-        await event.reply("Reply to someone to delete it and kick the user!")
+        await event.reply("Balas (reply) seseorang untuk menghapus pesan dan menendang(kick) pengguna!")
         return
     us = reply_msg.sender.username
     info = await Zaid.get_entity(us) 
@@ -148,11 +148,11 @@ async def dban(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
     if not perm.ban_users:
-         await event.reply("You are missing the following rights to use this command:CanBanUsers!")
+         await event.reply("Perintah ini hanya bisa digunakan admin yang memiliki hak ban!❌")
          return
     reply_msg = await event.get_reply_message()
     if not reply_msg:
-        await event.reply("Reply to someone to delete the message and ban the user!")
+        await event.reply("Balas (reply) seseorang untuk menghapus pesan dan memblokir(ban) pengguna!")
         return
     us = reply_msg.sender.username
     info = await Zaid.get_entity(us) 
@@ -169,11 +169,11 @@ async def sban(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
     if not perm.ban_users:
-         await event.reply("You are missing the following rights to use this command:CanBanUsers!")
+         await event.reply("Perintah ini hanya bisa digunakan admin yang memiliki hak ban!❌")
          return
     reply_msg = await event.get_reply_message()
     if not reply_msg:
-        await event.reply("Reply to someone to delete the message and ban the user!")
+        await event.reply("Balas (reply) seseorang untuk menghapus pesan dan memblokir(ban) pengguna!")
         return
     us = reply_msg.sender.username
     info = await Zaid.get_entity(us) 
@@ -185,4 +185,4 @@ async def sban(event, perm):
 
 @ALBY.on(events.callbackquery.CallbackQuery(data="bans"))
 async def banhelp(event):
-    await event.edit(BANS_TEXT, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
+    await event.edit(BANS_TEXT, buttons=[[Button.inline("« Kembali", data="help")]])
