@@ -32,7 +32,7 @@ async def promote(event, perm):
     input_str = event.pattern_match.group(1)
     user = await event.get_reply_message()
     if not input_str and not user:
-        await event.reply("Balas pesan pengguna atau berikan username pengguna untuk diangkat menjadi admin!")
+        await event.reply("Balas(reply) pesan pengguna atau berikan username pengguna untuk diangkat menjadi admin!")
         return
     sed = await ALBY(GetFullUserRequest(id=user.sender_id or input_str))
     await Stark(EditAdminRequest(event.chat_id, user.sender_id or input_str, ChatAdminRights(
@@ -63,7 +63,7 @@ async def promote(event, perm):
     input_str = event.pattern_match.group(1)
     user = await event.get_reply_message()
     if not input_str and not user:
-        await event.reply("Balas pesan pengguna atau berikan username pengguna untuk menurunkan hak admin!")
+        await event.reply("Balas(reply) pesan pengguna atau berikan username pengguna untuk menurunkan hak admin!")
         return
     sed = await ALBY(GetFullUserRequest(id=user.sender_id or input_str))
     await Stark(EditAdminRequest(event.chat_id, user.sender_id or input_str, ChatAdminRights(
@@ -108,6 +108,6 @@ ADMIN_TEXT = """
 PLAY_TEXT = """
 **✘ Modul yang dapat digunakan oleh pengguna obrolan!**
 
-‣ `?play` - Untuk Memutar Musik atau Balas ke file audio.
+‣ `?play` - Untuk Memutar Musik atau Balas(reply) ke file audio.
 ‣ `?vplay` - Untuk Memutar Video (HEROKU_MODE > Tidak mendukung).
 """
