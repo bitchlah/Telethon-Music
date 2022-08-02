@@ -27,7 +27,7 @@ async def promote(event, perm):
        return
 
     if not perm.add_admins:
-        await event.reply("Perintah ini hanya bisa digunakan admin, dan ❌ Anda Bukan Admin Group!❌")
+        await event.reply("Perintah ini hanya bisa digunakan admin yang memiliki hak add admins!❌")
         return
     input_str = event.pattern_match.group(1)
     user = await event.get_reply_message()
@@ -58,7 +58,7 @@ async def promote(event, perm):
        await event.reply("Perintah ini dibuat untuk digunakan dalam grup, bukan di PM!")
        return
     if not perm.add_admins:
-        await event.reply("Perintah ini hanya bisa digunakan admin, dan ❌ Anda Bukan Admin Group!❌")
+        await event.reply("Perintah ini hanya bisa digunakan admin yang memiliki hak add admins!❌")
         return
     input_str = event.pattern_match.group(1)
     user = await event.get_reply_message()
