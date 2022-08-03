@@ -3,14 +3,14 @@
 
 import glob
 from pathlib import Path
-from Zaid.utils import load_plugins
+from ALBY.utils import load_plugins
 import logging
-from Zaid import Zaid
+from ALBY import ALBY
 
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.INFO)
 
-path = "Zaid/plugins/*.py"
+path = "ALBY/plugins/*.py"
 files = glob.glob(path)
 for name in files:
     with open(name) as a:
@@ -19,7 +19,7 @@ for name in files:
         load_plugins(plugin_name.replace(".py", ""))
     
 print("Successfully Started Bot!")
-print("Visit @TheUpdatesChannel")
+print("Visit @ruangprojects")
 
 if __name__ == "__main__":
-    Zaid.run_until_disconnected()
+    ALBY.run_until_disconnected()
