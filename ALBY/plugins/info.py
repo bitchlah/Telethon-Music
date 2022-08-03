@@ -9,10 +9,10 @@ from telethon.tl.functions.users import GetFullUserRequest
 
 
 MISC_HELP = """
-**✘ An "odds and ends" module for small, simple commands which don't really fit anywhere.**
+**✘ Modul "info" yang tersedia.**
 
-‣ `?id` - To get current chat id or replied user id.
-‣ `?info` - To get info of a user.
+‣ `?id` - Untuk mendapatkan id obrolan saat ini atau id pengguna yang dibalas(reply).
+‣ `?info` - Untuk mendapatkan info pengguna.
 """
 
 @ALBY.on(events.NewMessage(pattern="^[!?/]id"))
@@ -75,4 +75,4 @@ async def info(event):
 
 @ALBY.on(events.callbackquery.CallbackQuery(data="misc"))
 async def _(event):
-    await event.edit(MISC_HELP, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
+    await event.edit(MISC_HELP, buttons=[[Button.inline("« Kembali", data="help")]])
