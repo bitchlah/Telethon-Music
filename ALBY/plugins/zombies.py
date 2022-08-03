@@ -2,15 +2,15 @@ from telethon import events, Button
 from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.types import ChannelParticipantsAdmins, ChatBannedRights
-from Zaid import Zaid
-from Zaid.status import *
+from ALBY import ALBY
+from ALBY.status import *
 from Config import Config
 
 CLEANER_HELP = """
-**✘ This is A Module To Remove Deleted Accounts From Your Groups!**
+**✘ Ini adalah Modul Untuk Menghapus Akun terhapus Dari Grup Anda!**
 
-‣ `?zombies` - To find zombies accounts in your chat.
-‣ `?zombies clean` - To remove the deleted accounts from your chat.
+‣ `?zombies` - Untuk menemukan akun terhapus di obrolan Anda.
+‣ `?zombies clean` - Untuk menghapus akun terhapus dari obrolan Anda.
 """
 
 
@@ -38,26 +38,26 @@ UNBAN_RIGHTS = ChatBannedRights(
 )
 
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]zombies ?(.*)"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]zombies ?(.*)"))
 @is_admin
 async def clean(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
     if not perm.ban_users:
-      await event.reply("You don't have enough rights")
+      await event.reply("Anda tidak memiliki hak")
       return
     input_str = event.pattern_match.group(1)
     stats = "Group is clean."
     deleted = 0
 
     if "clean" not in input_str:
-      zombies = await event.respond("Searching For Zombies/Deleted Accounts...")
+      zombies = await event.respond("Mencari Zombie/Akun Terhapus...")
       async for user in event.client.iter_participants(event.chat_id):
 
             if user.deleted:
                 deleted += 1
       if deleted > 0:
-            stats = f"Found **{deleted}** Zombies In This Group.\
+            stats = f"Ditemukan **{deleted}** Zombie/Akun Terhapus Di Grup Ini.\
             \nClean Them By Using - `/zombies clean`"
       await zombies.edit(stats)
       return
@@ -90,6 +90,6 @@ async def clean(event, perm):
 
     await cleaning_zombies.edit(stats)
 
-@Zaid.on(events.callbackquery.CallbackQuery(data="zombies"))
+@ALBY.on(events.callbackquery.CallbackQuery(data="zombies"))
 async def _(event):
-    await event.edit(CLEANER_HELP, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
+    await event.edit(CLEANER_HELP, buttons=[[Button.inline("« Kembali", data="help")]])
