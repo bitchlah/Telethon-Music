@@ -1,4 +1,4 @@
-from Zaid import Zaid, BOT_USERNAME
+from ALBY import ALBY, BOT_USERNAME
 from Config import Config
 from telethon import events, Button
 
@@ -15,7 +15,7 @@ PM_START_TEXT = """
 ✘ **ᴄʟɪᴄᴋ ᴏɴ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴ 🔘 ꜰᴏʀ ᴍᴏʀᴇ ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ ℹ️**.
 """
 
-@Zaid.on(events.NewMessage(pattern="^[?!/]start$"))
+@ALBY.on(events.NewMessage(pattern="^[?!/]start$"))
 async def start(event):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
@@ -25,7 +25,7 @@ async def start(event):
              caption=PM_START_TEXT.format(event.sender.first_name), 
              buttons=[
         [Button.url("➕ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀᴛ", f"https://t.me/{BOT_USERNAME}?startgroup=true")],
-        [Button.url("👨‍💻 ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ", "https://github.com/ITZ-ZAID/Telethon-Music")],
+        [Button.url("👨‍💻 ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ", "https://github.com/")],
         [Button.url("🗣️ ꜱᴜᴘᴘᴏʀᴛ", f"https://t.me/{Config.SUPPORT}"), Button.url("📣 ᴜᴘᴅᴀᴛᴇꜱ", f"https://t.me/{Config.CHANNEL}")],
         [Button.inline("ʜᴇʟᴘ ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅꜱ", data="help")]])
        return
@@ -36,7 +36,7 @@ async def start(event):
 
 
 
-@Zaid.on(events.callbackquery.CallbackQuery(data="start"))
+@ALBY.on(events.callbackquery.CallbackQuery(data="start"))
 async def _(event):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
