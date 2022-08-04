@@ -1,6 +1,6 @@
 from telethon import events, Button
-from Zaid import Zaid
-from Zaid.status import *
+from ALBY import ALBY
+from ALBY.status import *
 import time
 from Config import Config
 
@@ -12,7 +12,7 @@ PR_HELP = """
 ‣ `?del` - Deletes the replied to message.
 """
 
-@Zaid.on(events.NewMessage(pattern=r"^[?!]purge"))
+@ALBY.on(events.NewMessage(pattern=r"^[?!]purge"))
 @is_admin
 async def purge_messages(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -42,7 +42,7 @@ async def purge_messages(event, perm):
     text = f"Purged in {time_:0.2f} Second(s)"
     await event.respond(text, parse_mode='markdown')
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]spurge"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]spurge"))
 @is_admin
 async def spurge(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -69,7 +69,7 @@ async def spurge(event, perm):
 
     await event.client.delete_messages(event.chat_id, messages)
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]del$"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]del$"))
 @is_admin
 async def delete_messages(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -85,6 +85,6 @@ async def delete_messages(event, perm):
     await msg.delete()
     await event.delete()
 
-@Zaid.on(events.callbackquery.CallbackQuery(data="purges"))
+@ALBY.on(events.callbackquery.CallbackQuery(data="purges"))
 async def _(event):
-    await event.edit(PR_HELP, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
+    await event.edit(PR_HELP, buttons=[[Button.inline("« Kembali", data="help")]])
