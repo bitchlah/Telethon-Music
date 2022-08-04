@@ -14,7 +14,7 @@ from pytgcalls.exceptions import (
     NoActiveGroupCall,
     NotInGroupCallError
 )
-from Zaid.status import *
+from ALBY.status import *
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.functions.messages import ExportChatInviteRequest
 import telethon.utils
@@ -27,11 +27,11 @@ from youtubesearchpython import VideosSearch
  
 fotoplay = "https://telegra.ph/file/b6402152be44d90836339.jpg"
 ngantri = "https://telegra.ph/file/b6402152be44d90836339.jpg"
-from Zaid import call_py, Zaid, client as Client
+from ALBY import call_py, ALBY, client as Client
 owner = "1669178360"
-from Zaid.helpers.yt_dlp import bash
-from Zaid.helpers.chattitle import CHAT_TITLE
-from Zaid.helpers.queues import (
+from ALBY.helpers.yt_dlp import bash
+from ALBY.helpers.chattitle import CHAT_TITLE
+from ALBY.helpers.queues import (
     QUEUE,
     add_to_queue,
     clear_queue,
@@ -41,8 +41,8 @@ from Zaid.helpers.queues import (
 from telethon import Button, events
 from Config import Config
 
-from Zaid.helpers.thumbnail import gen_thumb
-from Zaid.helpers.joiner import AssistantAdd
+from ALBY.helpers.thumbnail import gen_thumb
+from ALBY.helpers.joiner import AssistantAdd
 
 def vcmention(user):
     full_name = get_display_name(user)
@@ -119,7 +119,7 @@ async def skip_current_song(chat_id: int):
     return [songname, link, type]
 
 
-@Zaid.on(events.callbackquery.CallbackQuery(data="cls"))
+@ALBY.on(events.callbackquery.CallbackQuery(data="cls"))
 async def _(event):
 
      await event.delete()
@@ -130,7 +130,7 @@ btnn =[
 
 
 #play
-@Zaid.on(events.NewMessage(pattern="^[?!/]play"))
+@ALBY.on(events.NewMessage(pattern="^[?!/]play"))
 @AssistantAdd
 async def play(event):
     title = ' '.join(event.text[5:])
@@ -228,7 +228,7 @@ async def play(event):
 
 
 #end
-@Zaid.on(events.NewMessage(pattern="^[/?!]end"))
+@ALBY.on(events.NewMessage(pattern="^[/?!]end"))
 @is_admin
 async def vc_end(event, perm):
     chat_id = event.chat_id
@@ -246,11 +246,11 @@ async def vc_end(event, perm):
 
 
 
-@Zaid.on(events.NewMessage(pattern="^[?!/]vplay"))
+@ALBY.on(events.NewMessage(pattern="^[?!/]vplay"))
 @AssistantAdd
 async def vplay(event):
     if Config.HEROKU_MODE == "ENABLE":
-        await event.reply("__Currently Heroku Mode is ENABLED so You Can't Stream Video because Video Streaming Cause of Banning Your Heroku Account__.")
+        await event.reply("__Fitur Streaming untuk sementara tidak bisa digunakan__.")
         return
     title = ' '.join(event.text[6:])
     replied = await event.get_reply_message()
@@ -269,7 +269,7 @@ async def vplay(event):
         or not replied
         and not title
     ):
-        return await event.client.send_file(chat_id, Config.CMD_IMG, caption="**Give Me Your Query Which You want to Stream**\n\n **Example**: `/vplay Nira Ishq Bass boosted`", buttons=btnn)
+        return await event.client.send_file(chat_id, Config.CMD_IMG, caption="**Give Me Your Query Which You want to Stream**\n\n **Example**: `/vplay pagiku cerahku`", buttons=btnn)
     if replied and not replied.video and not replied.document:
         xnxx = await event.reply("`Searching Video Details...`")
         query = event.text.split(maxsplit=1)[1]
@@ -410,7 +410,7 @@ async def vplay(event):
 
 
 #playlist
-@Zaid.on(events.NewMessage(pattern="^[?!/]playlist"))
+@ALBY.on(events.NewMessage(pattern="^[?!/]playlist"))
 @is_admin
 async def vc_playlist(event, perm):
     chat_id = event.chat_id
@@ -440,7 +440,7 @@ async def vc_playlist(event, perm):
 
 
 #leavevc
-@Zaid.on(events.NewMessage(pattern="^[?!/]leavevc"))
+@ALBY.on(events.NewMessage(pattern="^[?!/]leavevc"))
 @is_admin
 async def leavevc(event, perm):
     xnxx = await event.reply("Processing")
@@ -457,7 +457,7 @@ async def leavevc(event, perm):
 
 
 
-@Zaid.on(events.NewMessage(pattern="^[?!/]skip"))
+@ALBY.on(events.NewMessage(pattern="^[?!/]skip"))
 @is_admin
 async def vc_skip(event, perm):
     chat_id = event.chat_id
@@ -486,7 +486,7 @@ async def vc_skip(event, perm):
             await event.reply(DELQUE)
 
 
-@Zaid.on(events.NewMessage(pattern="^[?!/]pause"))
+@ALBY.on(events.NewMessage(pattern="^[?!/]pause"))
 @is_admin
 async def vc_pause(event, perm):
     chat_id = event.chat_id
@@ -501,7 +501,7 @@ async def vc_pause(event, perm):
 
 
 
-@Zaid.on(events.NewMessage(pattern="^[?!/]resume"))
+@ALBY.on(events.NewMessage(pattern="^[?!/]resume"))
 @is_admin
 async def vc_resume(event, perm):
     chat_id = event.chat_id
