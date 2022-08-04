@@ -12,13 +12,13 @@ import telethon.utils
 from telethon.tl import functions
 from telethon.tl.functions.channels import LeaveChannelRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest
-from Zaid import *
-from Zaid.status import *
+from ALBY import *
+from ALBY.status import *
 
 
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]join ?(.*)"))
-@Zaid.on(events.NewMessage(pattern="^[!?/]userbotjoin ?(.*)"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]join ?(.*)"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]userbotjoin ?(.*)"))
 @is_admin
 async def _(e, perm):
     chat_id = e.chat_id
@@ -38,7 +38,7 @@ async def _(e, perm):
             await e.reply(usage, parse_mode=None, link_preview=None )
 
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]pjoin ?(.*)"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]pjoin ?(.*)"))
 @is_admin        
 async def _(e, perm):
     chat_id = e.chat_id
