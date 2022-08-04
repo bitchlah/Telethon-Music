@@ -1,6 +1,6 @@
 from telethon import events, Button, types
-from Zaid import Zaid
-from Zaid.status import *
+from ALBY import ALBY
+from ALBY.status import *
 from Config import Config
 
 LOCKS_HELP = """
@@ -11,7 +11,7 @@ LOCKS_HELP = """
 ‣ `?locktypes` - To get a list of modules can be locked
 """
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]lock ?(.*)"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]lock ?(.*)"))
 @is_admin
 async def lock(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -51,7 +51,7 @@ async def lock(event, perm):
        await Stark.edit_permissions(event.chat_id, embed_link_previews=False)
        await event.reply("Locked `preview`.")
     elif "all" in input_str:
-       await Zaid.edit_permissions(event.chat_id,
+       await ALBY.edit_permissions(event.chat_id,
           send_messages=False, 
           send_media=False,
           send_stickers=False,
@@ -63,7 +63,7 @@ async def lock(event, perm):
        await event.reply("Locked `all`.")
 
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]unlock ?(.*)"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]unlock ?(.*)"))
 @is_admin
 async def unlock(event, perm):
     if Config.MANAGEMENT_MODE == "ENABLE":
@@ -103,7 +103,7 @@ async def unlock(event, perm):
        await Stark.edit_permissions(event.chat_id, embed_link_previews=True)
        await event.reply("Unlocked `preview`.")
     elif "all" in input_str:
-       await Zaid.edit_permissions(event.chat_id,
+       await ALBY.edit_permissions(event.chat_id,
           send_messages=True, 
           send_media=True,
           send_stickers=True,
@@ -115,7 +115,7 @@ async def unlock(event, perm):
        await event.reply("Unlocked `all`.")
 
 
-@Zaid.on(events.NewMessage(pattern="^[!?/]locktypes"))
+@ALBY.on(events.NewMessage(pattern="^[!?/]locktypes"))
 async def locktypes(event):
     if Config.MANAGEMENT_MODE == "ENABLE":
         return
@@ -134,7 +134,7 @@ async def locktypes(event):
 """
     await event.reply(TEXT)
 
-@Zaid.on(events.callbackquery.CallbackQuery(data="locks"))
+@ALBY.on(events.callbackquery.CallbackQuery(data="locks"))
 async def _(event):
 
-    await event.edit(LOCKS_HELP, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
+    await event.edit(LOCKS_HELP, buttons=[[Button.inline("« Kembali", data="help")]])
